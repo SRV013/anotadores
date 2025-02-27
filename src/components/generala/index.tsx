@@ -53,7 +53,7 @@ export default function MyGenerala() {
         <>
             <div className={styles.header}>Generala Resultados</div>
             <div className={styles.container}>
-                <div className={styles["table-wrapper"]}>
+                <div>
                     <div className={styles.generalaTable}>
                         <table>
                             <thead>
