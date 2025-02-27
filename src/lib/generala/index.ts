@@ -5,10 +5,10 @@ export const GENERALA_JUGADAS = [
     { id: "4", label: "4", value: [4, 8, 12, 16, 20] },
     { id: "5", label: "5", value: [5, 10, 15, 20, 25] },
     { id: "6", label: "6", value: [6, 12, 18, 24, 30] },
-    { id: "escalera", label: "Escalera", value: [25, 30] },
+    { id: "escalera", label: "Escalera", value: [20, 25] },
     { id: "full", label: "Full", value: [30, 35] },
     { id: "poker", label: "Póker", value: [40, 45] },
-    { id: "generala", label: "Generala", value: [50, 55] },
+    { id: "generala", label: "Generala", value: [50, 60] },
     { id: "generala_doble", label: "Generala II", value: [100, 120] },
 ] as const;
 

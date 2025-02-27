@@ -1,12 +1,10 @@
 import { useState } from "react";
 import styles from "./style.module.css";
 import { GENERALA_JUGADAS } from "@/lib/generala";
-import { Delete, New } from "@/icons/actions";
+import { Delete, New, Crown } from "@/icons/actions";
 
 export default function MyGenerala() {
     const [players, setPlayers] = useState(["Jugador 1", "Jugador 2"]);
-
-    // Estado para guardar los valores seleccionados de cada jugador
     const [scores, setScores] = useState<{ [key: number]: { [key: string]: number } }>({});
 
     const handlePlayerNameChange = (index: number, newName: string) => {
@@ -26,14 +24,12 @@ export default function MyGenerala() {
         if (players.length > 2) {
             setPlayers(players.filter((_, i) => i !== index));
 
-            // Eliminar los puntajes del jugador eliminado
             const updatedScores = { ...scores };
             delete updatedScores[index];
             setScores(updatedScores);
         }
     };
 
-    // Guardar el puntaje seleccionado
     const handleSelect = (event: any, playerIndex: number, jugada: string) => {
         const valorObtenido = Number(event.target.value) || 0;
         setScores((prevScores) => ({
@@ -45,10 +41,13 @@ export default function MyGenerala() {
         }));
     };
 
-    // Calcular total por jugador
     const getTotalScore = (playerIndex: number) => {
         return Object.values(scores[playerIndex] || {}).reduce((sum, value) => sum + value, 0);
     };
+
+    const totalScores = players.map((_player, index) => getTotalScore(index));
+    const maxScore = Math.max(...totalScores);
+    const leaders = totalScores.map((score) => score === maxScore); // Identifica a los líderes
 
     return (
         <div className={styles.container}>
@@ -88,10 +87,10 @@ export default function MyGenerala() {
                                             <option value="">---</option>
                                             {Array.isArray(jugada.value)
                                                 ? jugada.value.map((value, i) => (
-                                                      <option key={i} value={value}>
-                                                          {value}
-                                                      </option>
-                                                  ))
+                                                    <option key={i} value={value}>
+                                                        {value}
+                                                    </option>
+                                                ))
                                                 : null}
                                             <option value="0">Tachar</option>
                                         </select>
@@ -104,7 +103,12 @@ export default function MyGenerala() {
                         <tr>
                             <th>Total</th>
                             {players.map((_player, index) => (
-                                <th key={index}>{getTotalScore(index)}</th>
+                                <th key={index}>
+                                    {getTotalScore(index)}
+                                    <span>
+                                        {leaders[index] && <Crown />} {/* Muestra la corona si es líder */}
+                                    </span>
+                                </th>
                             ))}
                         </tr>
                     </tfoot>

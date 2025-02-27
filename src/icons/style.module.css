@@ -33,7 +33,7 @@
 .new,
 .delete {
     stroke: red;
-    opacity: .7;
+    opacity: .8;
     transition: var(--transition);
 
     &:hover {
@@ -46,4 +46,10 @@
     width: 44px;
     height: 44px;
     stroke: rgb(235, 232, 232);
+}
+
+.crown {
+    width: 30px;
+    height: 30px;
+    stroke: gold;
 }

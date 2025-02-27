@@ -28,10 +28,11 @@
     width: 100%;
 }
 
-.generalaTable thead th{
+.generalaTable thead th {
     padding: 8px 15px 35px 15px;
     text-align: center;
 }
+
 .generalaTable tfoot th {
     padding: 25px 12px;
 }
@@ -43,15 +44,21 @@
     white-space: nowrap;
 }
 
-.generalaTable thead th {
+.generalaTable thead th,
+.generalaTable tfoot th {
     position: relative;
 }
 
-.generalaTable thead th span {
+.generalaTable thead th span,
+.generalaTable tfoot th span {
     position: absolute;
     right: 50%;
     transform: translateX(50%);
     top: 2.5rem;
+}
+
+.generalaTable tfoot th span {
+    top: 3rem;
 }
 
 .generalaTable tbody td:first-child,
