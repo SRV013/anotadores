@@ -51,7 +51,7 @@ export default function MyGenerala() {
 
     return (
         <>
-            <div className={styles.header}>Generala Resultados</div>
+            <div className={styles.header}>{"<< "}Generala Resultados {" >>"}</div>
             <div className={styles.container}>
                 <div>
                     <div className={styles.generalaTable}>
