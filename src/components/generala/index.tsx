@@ -4,48 +4,55 @@ import { GENERALA_JUGADAS } from "@/lib/generala";
 import { Delete, New } from "@/icons/actions";
 
 export default function MyGenerala() {
-    // Estado para los jugadores
     const [players, setPlayers] = useState(["Jugador 1", "Jugador 2"]);
 
-    // Manejar el cambio de nombre de un jugador
+    // Estado para guardar los valores seleccionados de cada jugador
+    const [scores, setScores] = useState<{ [key: number]: { [key: string]: number } }>({});
+
     const handlePlayerNameChange = (index: number, newName: string) => {
-        if (!players.includes(newName)) {
-            const updatedPlayers = [...players];
-            updatedPlayers[index] = newName;
-            setPlayers(updatedPlayers);
+        const updatedPlayers = [...players];
+        updatedPlayers[index] = newName;
+        setPlayers(updatedPlayers);
+    };
+
+    const addPlayer = () => {
+        const newPlayerName = `Jugador ${players.length + 1}`;
+        if (!players.includes(newPlayerName)) {
+            setPlayers([...players, newPlayerName]);
         }
     };
 
-    // Agregar un nuevo jugador
-    const addPlayer = () => {
-        let newPlayer;
-        let count = players.length + 1;
-
-        do {
-            newPlayer = `Jugador ${count}`;
-            count++;
-        } while (players.includes(newPlayer)); // Asegura que el nombre no se repita
-
-        setPlayers([...players, newPlayer]);
-    };
-
-    // Borrar un jugador
     const deletePlayer = (index: number) => {
         if (players.length > 2) {
             setPlayers(players.filter((_, i) => i !== index));
+
+            // Eliminar los puntajes del jugador eliminado
+            const updatedScores = { ...scores };
+            delete updatedScores[index];
+            setScores(updatedScores);
         }
     };
 
-    // Manejo de selección en los select
-    const handleSelect = (event: any, player: any, jugada: any) => {
-        const valorObtenido = event.target.value;
-        console.log(`Jugador: ${player}, Jugada: ${jugada}, Valor: ${valorObtenido}`);
+    // Guardar el puntaje seleccionado
+    const handleSelect = (event: any, playerIndex: number, jugada: string) => {
+        const valorObtenido = Number(event.target.value) || 0;
+        setScores((prevScores) => ({
+            ...prevScores,
+            [playerIndex]: {
+                ...prevScores[playerIndex],
+                [jugada]: valorObtenido,
+            },
+        }));
+    };
+
+    // Calcular total por jugador
+    const getTotalScore = (playerIndex: number) => {
+        return Object.values(scores[playerIndex] || {}).reduce((sum, value) => sum + value, 0);
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>Generala Resultados</div>
-
             <div className={styles.generalaTable}>
                 <table>
                     <thead>
@@ -72,16 +79,20 @@ export default function MyGenerala() {
                         {GENERALA_JUGADAS.map((jugada) => (
                             <tr key={jugada.id}>
                                 <td>{jugada.label}</td>
-                                {players.map((player, index) => (
+                                {players.map((_player, index) => (
                                     <td key={index}>
                                         <select
                                             name={jugada.label}
-                                            onChange={(event) => handleSelect(event, player, jugada.label)}
+                                            onChange={(event) => handleSelect(event, index, jugada.label)}
                                         >
                                             <option value="">---</option>
-                                            {Array.isArray(jugada.value) ? jugada.value.map((value, i) => (
-                                                <option key={i} value={value}>{value}</option>
-                                            )) : null}
+                                            {Array.isArray(jugada.value)
+                                                ? jugada.value.map((value, i) => (
+                                                      <option key={i} value={value}>
+                                                          {value}
+                                                      </option>
+                                                  ))
+                                                : null}
                                             <option value="0">Tachar</option>
                                         </select>
                                     </td>
@@ -93,13 +104,12 @@ export default function MyGenerala() {
                         <tr>
                             <th>Total</th>
                             {players.map((_player, index) => (
-                                <th key={index}>0</th>
+                                <th key={index}>{getTotalScore(index)}</th>
                             ))}
                         </tr>
                     </tfoot>
                 </table>
             </div>
-
             <span onClick={addPlayer}>
                 <New />
                 <p>Agregar Nuevo Participante</p>
