@@ -1,0 +1,29 @@
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  padding: 10px;
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -5;
+  inset: 0;
+  background: no-repeat;
+  opacity: .5;
+  filter: blur(.5);
+  background: linear-gradient(133deg, canvas 0%, canvas 55%, var(--primary) 100%);
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  height: 100%;
+  overflow: hidden;
+}
