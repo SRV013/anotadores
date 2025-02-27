@@ -5,6 +5,15 @@
   padding: 10px;
 }
 
+#app img {
+  position: fixed;
+  width: 60%;
+  right: 2rem;
+  bottom: 2rem;
+  filter: blur(5px);
+  opacity: .1;
+}
+
 #background {
   position: fixed;
   top: 0;
