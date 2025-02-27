@@ -105,9 +105,11 @@ export default function MyGenerala() {
                             {players.map((_player, index) => (
                                 <th key={index}>
                                     {getTotalScore(index)}
-                                    <span>
-                                        {leaders[index] && <Crown />} {/* Muestra la corona si es líder */}
-                                    </span>
+                                    {getTotalScore(index) >  0 &&
+                                        <span>
+                                            {leaders[index] && <Crown />}
+                                        </span>
+                                    }
                                 </th>
                             ))}
                         </tr>
