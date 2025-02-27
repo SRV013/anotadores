@@ -50,76 +50,80 @@ export default function MyGenerala() {
     const leaders = totalScores.map((score) => score === maxScore); // Identifica a los líderes
 
     return (
-        <div className={styles.container}>
+        <>
             <div className={styles.header}>Generala Resultados</div>
-            <div className={styles.generalaTable}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Jugada</th>
-                            {players.map((player, index) => (
-                                <th key={index}>
-                                    <input
-                                        type="text"
-                                        value={player}
-                                        onChange={(e) => handlePlayerNameChange(index, e.target.value)}
-                                        onFocus={(event) => event.target.select()}
-                                    />
-                                    {players.length > 2 && (
-                                        <span onClick={() => deletePlayer(index)}>
-                                            <Delete />
-                                        </span>
-                                    )}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {GENERALA_JUGADAS.map((jugada) => (
-                            <tr key={jugada.id}>
-                                <td>{jugada.label}</td>
-                                {players.map((_player, index) => (
-                                    <td key={index}>
-                                        <select
-                                            name={jugada.label}
-                                            onChange={(event) => handleSelect(event, index, jugada.label)}
-                                        >
-                                            <option value="">---</option>
-                                            {Array.isArray(jugada.value)
-                                                ? jugada.value.map((value, i) => (
-                                                    <option key={i} value={value}>
-                                                        {value}
-                                                    </option>
-                                                ))
-                                                : null}
-                                            <option value="0">Tachar</option>
-                                        </select>
-                                    </td>
+            <div className={styles.container}>
+                <div className={styles["table-wrapper"]}>
+                    <div className={styles.generalaTable}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Jugada</th>
+                                    {players.map((player, index) => (
+                                        <th key={index}>
+                                            <input
+                                                type="text"
+                                                value={player}
+                                                onChange={(e) => handlePlayerNameChange(index, e.target.value)}
+                                                onFocus={(event) => event.target.select()}
+                                            />
+                                            {players.length > 2 && (
+                                                <span onClick={() => deletePlayer(index)}>
+                                                    <Delete />
+                                                </span>
+                                            )}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {GENERALA_JUGADAS.map((jugada) => (
+                                    <tr key={jugada.id}>
+                                        <td>{jugada.label}</td>
+                                        {players.map((_player, index) => (
+                                            <td key={index}>
+                                                <select
+                                                    name={jugada.label}
+                                                    onChange={(event) => handleSelect(event, index, jugada.label)}
+                                                >
+                                                    <option value="">---</option>
+                                                    {Array.isArray(jugada.value)
+                                                        ? jugada.value.map((value, i) => (
+                                                            <option key={i} value={value}>
+                                                                {value}
+                                                            </option>
+                                                        ))
+                                                        : null}
+                                                    <option value="0">Tachar</option>
+                                                </select>
+                                            </td>
+                                        ))}
+                                    </tr>
                                 ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Total</th>
-                            {players.map((_player, index) => (
-                                <th key={index}>
-                                    {getTotalScore(index)}
-                                    {getTotalScore(index) >  0 &&
-                                        <span>
-                                            {leaders[index] && <Crown />}
-                                        </span>
-                                    }
-                                </th>
-                            ))}
-                        </tr>
-                    </tfoot>
-                </table>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    {players.map((_player, index) => (
+                                        <th key={index}>
+                                            {getTotalScore(index)}
+                                            {getTotalScore(index) > 0 &&
+                                                <span>
+                                                    {leaders[index] && <Crown />}
+                                                </span>
+                                            }
+                                        </th>
+                                    ))}
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                <div className={styles.new} onClick={addPlayer}>
+                    <New />
+                    <p>Agregar Nuevo Participante</p>
+                </div>
+                </div>
             </div>
-            <span onClick={addPlayer}>
-                <New />
-                <p>Agregar Nuevo Participante</p>
-            </span>
-        </div>
+        </>
     );
 }
