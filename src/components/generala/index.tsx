@@ -137,10 +137,12 @@ export default function MyGenerala() {
                             <th>Total</th>
                             {players.map((_player, index) => (
                                 <th key={index}>
-                                    {getTotalScore(index)}
-                                    {getTotalScore(index) > 0 &&
-                                        <span>{leaders[index] && <Crown />}</span>
-                                    }
+                                    <span>
+                                        {getTotalScore(index)}
+                                        {getTotalScore(index) > 0 &&
+                                            leaders[index] && <Crown />
+                                        }
+                                    </span>
                                 </th>
                             ))}
                         </tr>
