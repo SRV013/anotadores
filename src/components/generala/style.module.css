@@ -12,7 +12,7 @@
     padding: .5rem;
 }
 
-.header a{
+.header a {
     cursor: pointer;
 }
 
@@ -24,11 +24,24 @@
 .footer {
     display: flex;
     justify-content: space-around;
+    text-align: center;
     border-top: 1px solid var(--primary);
     backdrop-filter: blur(10px);
-    padding: 1rem;
+    padding: .5rem;
 }
 
+.footer span {
+    cursor: pointer;
+}
+
+.footer p {
+    opacity: .7;
+    font-size: .8rem;
+}
+
+.footer span:hover p {
+    opacity: 1;
+}
 
 .generalaTable {
     height: 100%;

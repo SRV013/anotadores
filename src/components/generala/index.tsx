@@ -148,8 +148,14 @@ export default function MyGenerala() {
                 </table>
             </div>
             <div className={styles.footer}>
-                <span onClick={handleReset}><Reset /></span>
-                <span onClick={addPlayer}><New /></span>
+                <span onClick={handleReset}>
+                    <Reset />
+                    <p>Reinicar</p>
+                </span>
+                <span onClick={addPlayer}>
+                    <New />
+                    <p>Participante</p>
+                </span>
             </div>
         </div>
     );
