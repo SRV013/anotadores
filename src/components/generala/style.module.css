@@ -31,12 +31,14 @@
 }
 
 .footer span {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
     cursor: pointer;
 }
 
 .footer p {
     opacity: .7;
-    font-size: .8rem;
 }
 
 .footer span:hover p {
