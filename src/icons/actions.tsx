@@ -11,7 +11,7 @@ function New() {
 }
 function Delete() {
     return (
-        <svg viewBox="0 0 24 24" className={`${style.icon} ${style.delete}`}>
+        <svg viewBox="0 0 24 24" className={`${style.icon} ${style.delete}`} style={{ stroke: 'red' }} >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M4 7l16 0" />
             <path d="M10 11l0 6" />
@@ -24,10 +24,10 @@ function Delete() {
 function Crown() {
     return (
         <svg viewBox="0 0 24 24" className={`${style.icon} ${style.crown}`}>
-           <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-           <path d="M12 6l4 6l5 -4l-2 10h-14l-2 -10l5 4z" />
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 6l4 6l5 -4l-2 10h-14l-2 -10l5 4z" />
         </svg>
     )
 }
 
-export { Delete, New , Crown }
+export { Delete, New, Crown }

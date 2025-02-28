@@ -32,7 +32,7 @@
 
 .new,
 .delete {
-    stroke: red;
+    /* stroke: red; */
     opacity: .8;
     transition: var(--transition);
 
@@ -45,7 +45,7 @@
 .new {
     width: 44px;
     height: 44px;
-    stroke: rgb(235, 232, 232);
+    /* stroke: rgb(235, 232, 232); */
 }
 
 .crown {
