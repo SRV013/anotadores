@@ -1,8 +1,6 @@
 #app {
-  display: flex;
-  flex-direction: column;
   height: 100dvh;
-  padding: 10px;
+  overflow: hidden;
 }
 
 #app img {
@@ -32,7 +30,5 @@
 #container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   height: 100%;
-  overflow: hidden;
 }

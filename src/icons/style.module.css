@@ -31,7 +31,8 @@
 }
 
 .new,
-.delete {
+.delete,
+.reset {
     /* stroke: red; */
     opacity: .8;
     transition: var(--transition);
@@ -42,13 +43,19 @@
     }
 }
 
-.new {
+.new,
+.reset {
     width: 44px;
     height: 44px;
     /* stroke: rgb(235, 232, 232); */
 }
 
-.crown {
+.reset {
+    stroke: red;
+}
+
+.crown ,
+.back {
     width: 30px;
     height: 30px;
     stroke: gold;

@@ -1,22 +1,19 @@
-.container {
+.header {
     display: flex;
     flex-direction: column;
-    height: 100%;
-}
-
-.header {
-    align-self: center;
+    align-items: center;
+    gap: 1rem;
     padding: 1rem;
 }
-
+.header span{ font-size: 2rem; }
 .nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    flex: 1;
     font-size: 1.6rem;
+    flex: 1;
 }
 
 .nav a {

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "./style.module.css";
 import { GENERALA_JUGADAS } from "@/lib/generala";
-import { Delete, New, Crown } from "@/icons/actions";
+import { Delete, New, Crown, Reset, Back } from "@/icons/actions";
+import { Link } from "react-router-dom";
 
 export default function MyGenerala() {
     const [players, setPlayers] = useState(["Jugador 1", "Jugador 2"]);
@@ -23,7 +24,6 @@ export default function MyGenerala() {
     const deletePlayer = (index: number) => {
         if (players.length > 2) {
             setPlayers(players.filter((_, i) => i !== index));
-
             const updatedScores = { ...scores };
             delete updatedScores[index];
             setScores(updatedScores);
@@ -40,7 +40,10 @@ export default function MyGenerala() {
             },
         }));
     };
-
+    const handleReset = () => {
+        setPlayers(["Jugador 1", "Jugador 2"]);
+        setScores({})
+    }
     const getTotalScore = (playerIndex: number) => {
         return Object.values(scores[playerIndex] || {}).reduce((sum, value) => sum + value, 0);
     };
@@ -50,80 +53,81 @@ export default function MyGenerala() {
     const leaders = totalScores.map((score) => score === maxScore); // Identifica a los líderes
 
     return (
-        <>
-            <div className={styles.header}>{"<< "}Generala Resultados {" >>"}</div>
-            <div className={styles.container}>
-                <div>
-                    <div className={styles.generalaTable}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Jugada</th>
-                                    {players.map((player, index) => (
-                                        <th key={index}>
-                                            <input
-                                                type="text"
-                                                value={player}
-                                                onChange={(e) => handlePlayerNameChange(index, e.target.value)}
-                                                onFocus={(event) => event.target.select()}
-                                            />
-                                            {players.length > 2 && (
-                                                <span onClick={() => deletePlayer(index)}>
-                                                    <Delete />
-                                                </span>
-                                            )}
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {GENERALA_JUGADAS.map((jugada) => (
-                                    <tr key={jugada.id}>
-                                        <td>{jugada.label}</td>
-                                        {players.map((_player, index) => (
-                                            <td key={index}>
-                                                <select
-                                                    name={jugada.label}
-                                                    onChange={(event) => handleSelect(event, index, jugada.label)}
-                                                >
-                                                    <option value="">---</option>
-                                                    {Array.isArray(jugada.value)
-                                                        ? jugada.value.map((value, i) => (
-                                                            <option key={i} value={value}>
-                                                                {value}
-                                                            </option>
-                                                        ))
-                                                        : null}
-                                                    <option value="0">Tachar</option>
-                                                </select>
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Total</th>
-                                    {players.map((_player, index) => (
-                                        <th key={index}>
-                                            {getTotalScore(index)}
-                                            {getTotalScore(index) > 0 &&
-                                                <span>
-                                                    {leaders[index] && <Crown />}
-                                                </span>
-                                            }
-                                        </th>
-                                    ))}
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                <div className={styles.new} onClick={addPlayer}>
-                    <New />
-                    <p>Agregar Nuevo Participante</p>
-                </div>
-                </div>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <Link to="/"><Back /></Link>
+                <span>
+                    Generala Resultados
+                </span>
             </div>
-        </>
+                <div className={styles.generalaTable}>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Jugada</th>
+                                {players.map((player, index) => (
+                                    <th key={index}>
+                                        <input
+                                            type="text"
+                                            value={player}
+                                            onChange={(e) => handlePlayerNameChange(index, e.target.value)}
+                                            onFocus={(event) => event.target.select()}
+                                        />
+                                        {players.length > 2 && (
+                                            <span onClick={() => deletePlayer(index)}>
+                                                <Delete />
+                                            </span>
+                                        )}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {GENERALA_JUGADAS.map((jugada) => (
+                                <tr key={jugada.id}>
+                                    <td>{jugada.label}</td>
+                                    {players.map((_player, index) => (
+                                        <td key={index}>
+                                            <select
+                                                name={jugada.label}
+                                                onChange={(event) => handleSelect(event, index, jugada.label)}
+                                            >
+                                                <option value="">---</option>
+                                                {Array.isArray(jugada.value)
+                                                    ? jugada.value.map((value, i) => (
+                                                        <option key={i} value={value}>
+                                                            {value}
+                                                        </option>
+                                                    ))
+                                                    : null}
+                                                <option value="0">Tachar</option>
+                                            </select>
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Total</th>
+                                {players.map((_player, index) => (
+                                    <th key={index}>
+                                        {getTotalScore(index)}
+                                        {getTotalScore(index) > 0 &&
+                                            <span>
+                                                {leaders[index] && <Crown />}
+                                            </span>
+                                        }
+                                    </th>
+                                ))}
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div className={styles.footer} >
+                    <span onClick={handleReset}> <Reset /></span>
+                    <span onClick={addPlayer}> <New /></span>
+                </div>
+        </div>
     );
 }
